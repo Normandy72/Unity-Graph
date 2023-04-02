@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,10 +7,19 @@ public class WindowGraph : MonoBehaviour
 {
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;       // container for dots
+    private RectTransform labelTemplateX;
+    private RectTransform labelTemplateY;
+    private RectTransform dashTemplateX;
+    private RectTransform dashTemplateY;
 
     private void Awake()
     {
         graphContainer = transform.Find("GraphContainer").GetComponent<RectTransform>();
+        labelTemplateX = graphContainer.Find("LabelTemplateX").GetComponent<RectTransform>();
+        labelTemplateY = graphContainer.Find("LabelTemplateY").GetComponent<RectTransform>();
+        dashTemplateX = graphContainer.Find("DashTemplateX").GetComponent<RectTransform>();
+        dashTemplateY = graphContainer.Find("DashTemplateY").GetComponent<RectTransform>();
+
         List<int> valueList = new List<int>{5, 18, 34, 89, 52, 15, 12, 65, 45, 54, 71, 16, 25, 35, 45};
         ShowGraph(valueList);
 
@@ -50,7 +60,38 @@ public class WindowGraph : MonoBehaviour
                 CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
 
-            lastCircleGameObject = circleGameObject;            
+            lastCircleGameObject = circleGameObject;
+
+            // instantiate labels for x axe
+            RectTransform labelX = Instantiate(labelTemplateX);
+            labelX.SetParent(graphContainer);
+            labelX.gameObject.SetActive(true);
+            labelX.anchoredPosition = new Vector2(xPosition, -12f);
+            labelX.GetComponent<TextMeshProUGUI>().text = i.ToString();
+
+            // instantiate dashes for x axe
+            RectTransform dashX = Instantiate(dashTemplateX);
+            dashX.SetParent(graphContainer, false);
+            dashX.gameObject.SetActive(true);
+            dashX.anchoredPosition = new Vector2(xPosition, -1f);            
+        }
+
+        int separatorCount = 10;
+        for(int i = 0; i <= separatorCount; i++)
+        {
+            // instantiate labels for y axe
+            RectTransform labelY = Instantiate(labelTemplateY);
+            labelY.SetParent(graphContainer);
+            labelY.gameObject.SetActive(true);
+            float normalizedValue = i * 1f / separatorCount;        // normalized value between 0 and 1
+            labelY.anchoredPosition = new Vector2(-12f, normalizedValue * graphHeight);
+            labelY.GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(normalizedValue * yMaximum).ToString();
+
+            // instantiate dashes for y axe
+            RectTransform dashY = Instantiate(dashTemplateY);
+            dashY.SetParent(graphContainer, false);
+            dashY.gameObject.SetActive(true);
+            dashY.anchoredPosition = new Vector2(-1f, normalizedValue * graphHeight); 
         }
     }
 
