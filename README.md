@@ -15,3 +15,7 @@
 14. Open LinePrefab, add a new script (_LineController_).
 15. Add a new script (_PenCanvas_) to PenCanvas. Add logic.
 16. Add a new script (_DotController_) to DotPrefab. Add logic.
+
+## Lines
+1. Create a new C# script (_Lines_), add it to Main Camera. Add logic.
+2. Create a new __Material__, assign it a color. Add it into script.
