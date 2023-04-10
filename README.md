@@ -4,7 +4,7 @@
 3. Inside of Main Camera create a __Canvas__ (_DotsCanvas_).
 4. In Canvas change _Render Mode_ to "Screen Space - Camera".
 5. Set _Render Camera_ (add Main Camera).
-6. Create a __Canvas__ (_PenToolCanvas_), place it between LineParent and DotsCanvas. Set _Render Mode_ ("Screen Space - Camera")". Set _Render Camera_ (add Main Camera).
+6. Create a __Canvas__ (_PenToolCanvas_), place it between LineParent and DotsCanvas. Set _Render Mode_ ("Screen Space - Camera"). Set _Render Camera_ (add Main Camera).
 7. Inside of PenToolCanvas create an __Image__ (_PenCanvas_), stretch it, change its color.
 8. Inside of PenToolCanvas create an __Image__, anchored it to a left up corner, set its position (50, -50), change its sprite.
 9. Create a new script (_PenTool_). Add logic. Add it as PenToolCanvas's component.
